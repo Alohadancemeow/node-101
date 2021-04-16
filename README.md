@@ -6,6 +6,8 @@ Learn Node.js
 
 >npm i express
 
+>npm i cors
+
 ### Node structure
 >-App
 
