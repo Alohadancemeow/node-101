@@ -31,18 +31,30 @@ exports.findByPrice = (min, max) => products.filter(product => product.price >= 
 exports.findById = (id) => products.filter(product => product.id == id)
 
 // # POST:
-exports.add = (product) => {
+exports.add = (product, file) => {
     count = count + 1
-    const productNew = new Product(count, product.name, "", product.price, product.stock)
+    const productNew = new Product(
+        count,
+        product.name,
+        file ? file.filename : "",
+        product.price,
+        product.stock
+    )
     products.push(productNew)
     return productNew
 }
 
 // # PUT: 
-exports.update = (id, product) => {
+exports.update = (id, product, file) => {
     const index = products.findIndex(product => product.id == id)
     if (index !== -1) {
-        const productUpdate = new Product(Number(id), product.name, "", product.price, product.stock)
+        const productUpdate = new Product(
+            Number(id),
+            product.name,
+            file ? file.filename : products[index].image,
+            product.price,
+            product.stock
+        )
         products[index] = productUpdate
         return productUpdate
     }
@@ -55,6 +67,6 @@ exports.remove = (id) => {
     if (index !== -1) {
         products.splice(index, 1)
         return true
-    } 
+    }
     return false
 }
